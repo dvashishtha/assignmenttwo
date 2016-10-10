@@ -1,31 +1,31 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingListApp', [])
+angular.module('ShoppingListCheckOff', [])
 .controller('ToBuyController', ToBuyController)
 .controller('AlreadyBoughtController', AlreadyBoughtController)
-.provider('ShoppingListService', ShoppingListServiceProvider);
+.provider('ShoppingListCheckOffService', ShoppingListServiceProvider);
 
 
-ToBuyController.$inject = ['ShoppingListService'];
-function ToBuyController(ShoppingListService) {
+ToBuyController.$inject = ['ShoppingListCheckOffService'];
+function ToBuyController(ShoppingListCheckOffService) {
   var list = this;
 
-  list.items = ShoppingListService.getItems();
+  list.items = ShoppingListCheckOffService.getItems();
 
   list.bought = function (idx) {
-    ShoppingListService.update(idx);
+    ShoppingListCheckOffService.update(idx);
   }
 
 }
 
-AlreadyBoughtController.$inject = ['ShoppingListService'];
-function AlreadyBoughtController(ShoppingListService) {
+AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+function AlreadyBoughtController(ShoppingListCheckOffService) {
   var boughtlist = this;
-  boughtlist.items = ShoppingListService.getBoughtItems();
+  boughtlist.items = ShoppingListCheckOffService.getBoughtItems();
 }
 
-function ShoppingListService(shoppingItems) {
+function ShoppingListCheckOffService(shoppingItems) {
   var service = this;
   var items = shoppingItems;
   var boughtItems = [];
@@ -76,7 +76,7 @@ function ShoppingListServiceProvider() {
 
 
   provider.$get = function () {
-    var shoppingList = new ShoppingListService(provider.defaults.shoppingItems);
+    var shoppingList = new ShoppingListCheckOffService(provider.defaults.shoppingItems);
 
     return shoppingList;
   };
